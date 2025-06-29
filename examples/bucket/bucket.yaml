@@ -1,0 +1,10 @@
+apiVersion: b2.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  name: example-crossplane-bucket
+spec:
+  forProvider:
+    bucketName: example-crossplane-bucket
+    bucketType: allPrivate
+  providerConfigRef:
+    name: default

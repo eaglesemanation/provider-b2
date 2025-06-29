@@ -9,7 +9,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
-	resource "github.com/eaglesemanation/provider-b2/internal/controller/null/resource"
+	bucket "github.com/eaglesemanation/provider-b2/internal/controller/b2/bucket"
 	providerconfig "github.com/eaglesemanation/provider-b2/internal/controller/providerconfig"
 )
 
@@ -17,7 +17,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		resource.Setup,
+		bucket.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
