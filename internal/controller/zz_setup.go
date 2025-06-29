@@ -9,7 +9,10 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
+	applicationkey "github.com/eaglesemanation/provider-b2/internal/controller/b2/applicationkey"
 	bucket "github.com/eaglesemanation/provider-b2/internal/controller/b2/bucket"
+	bucketfileversion "github.com/eaglesemanation/provider-b2/internal/controller/b2/bucketfileversion"
+	bucketnotificationrules "github.com/eaglesemanation/provider-b2/internal/controller/b2/bucketnotificationrules"
 	providerconfig "github.com/eaglesemanation/provider-b2/internal/controller/providerconfig"
 )
 
@@ -17,7 +20,10 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		applicationkey.Setup,
 		bucket.Setup,
+		bucketfileversion.Setup,
+		bucketnotificationrules.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

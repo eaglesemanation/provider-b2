@@ -7,4 +7,13 @@
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *ApplicationKey) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Bucket) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *BucketFileVersion) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *BucketNotificationRules) Hub() {}

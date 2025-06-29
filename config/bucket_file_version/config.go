@@ -1,0 +1,15 @@
+package bucket_file_version
+
+import "github.com/crossplane/upjet/pkg/config"
+
+func Configure(p *config.Provider) {
+	p.AddResourceConfigurator("b2_bucket_file_version", func(r *config.Resource) {
+		r.ShortGroup = "b2"
+		r.Kind = "BucketFileVersion"
+		r.References["bucket_id"] = config.Reference{
+			TerraformName:     "b2_bucket",
+			RefFieldName:      "BucketRef",
+			SelectorFieldName: "BucketSelector",
+		}
+	})
+}

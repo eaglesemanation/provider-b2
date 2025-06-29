@@ -1,0 +1,16 @@
+apiVersion: b2.crossplane.io/v1alpha1
+kind: ApplicationKey
+metadata:
+  name: example-crossplane-key
+spec:
+  forProvider:
+    keyName: example-crossplane-key
+    capabilities:
+      - readFiles
+    bucketRef:
+      name: example-crossplane-bucket
+  providerConfigRef:
+    name: default
+  writeConnectionSecretToRef:
+    name: example-crossplane-key
+    namespace: crossplane-system

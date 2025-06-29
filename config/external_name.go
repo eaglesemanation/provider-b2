@@ -9,7 +9,10 @@ import "github.com/crossplane/upjet/pkg/config"
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	"b2_bucket": config.IdentifierFromProvider,
+	"b2_application_key":           config.IdentifierFromProvider,
+	"b2_bucket":                    config.IdentifierFromProvider,
+	"b2_bucket_file_version":       config.IdentifierFromProvider,
+	"b2_bucket_notification_rules": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
