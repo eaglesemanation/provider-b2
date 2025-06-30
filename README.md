@@ -8,9 +8,9 @@ Backblaze B2 API.
 ## Getting Started
 
 Install the provider by using the following command after changing the image tag
-to the [latest release](https://marketplace.upbound.io/providers/eaglesemanation/provider-b2):
+to the [latest release](https://github.com/eaglesemanation/provider-b2/pkgs/container/provider-b2):
 ```
-crossplane xpkg install provider xpkg.crossplane.io/eaglesemanation/provider-b2:v0.1.0
+crossplane xpkg install provider ghcr.io/eaglesemanation/provider-b2:v0.1.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -21,7 +21,7 @@ kind: Provider
 metadata:
   name: provider-b2
 spec:
-  package: xpkg.crossplane.io/eaglesemanation/provider-b2:v0.1.0
+  package: ghcr.io/eaglesemanation/provider-b2:v0.1.0
 EOF
 ```
 
