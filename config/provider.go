@@ -10,10 +10,10 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 
-	"github.com/eaglesemanation/provider-b2/config/application_key"
+	"github.com/eaglesemanation/provider-b2/config/applicationkey"
 	"github.com/eaglesemanation/provider-b2/config/bucket"
-	"github.com/eaglesemanation/provider-b2/config/bucket_file_version"
-	"github.com/eaglesemanation/provider-b2/config/bucket_notification_rules"
+	"github.com/eaglesemanation/provider-b2/config/bucketfileversion"
+	"github.com/eaglesemanation/provider-b2/config/bucketnotificationrules"
 )
 
 const (
@@ -39,10 +39,10 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		application_key.Configure,
+		applicationkey.Configure,
 		bucket.Configure,
-		bucket_file_version.Configure,
-		bucket_notification_rules.Configure,
+		bucketfileversion.Configure,
+		bucketnotificationrules.Configure,
 	} {
 		configure(pc)
 	}

@@ -1,7 +1,8 @@
-package application_key
+package applicationkey
 
 import "github.com/crossplane/upjet/pkg/config"
 
+// Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("b2_application_key", func(r *config.Resource) {
 		r.ShortGroup = "b2"

@@ -1,7 +1,8 @@
-package bucket_file_version
+package bucketfileversion
 
 import "github.com/crossplane/upjet/pkg/config"
 
+// Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("b2_bucket_file_version", func(r *config.Resource) {
 		r.ShortGroup = "b2"

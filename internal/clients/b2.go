@@ -28,7 +28,7 @@ const (
 
 	// config keys
 	applicationKey   = "application_key"
-	applicationKeyId = "application_key_id"
+	applicationKeyID = "application_key_id"
 	endpoint         = "endpoint"
 )
 
@@ -71,8 +71,8 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if v, ok := creds[applicationKey]; ok {
 			ps.Configuration[applicationKey] = v
 		}
-		if v, ok := creds[applicationKeyId]; ok {
-			ps.Configuration[applicationKeyId] = v
+		if v, ok := creds[applicationKeyID]; ok {
+			ps.Configuration[applicationKeyID] = v
 		}
 		if v, ok := creds[endpoint]; ok {
 			ps.Configuration[endpoint] = v
