@@ -7,7 +7,7 @@ package controller
 import (
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	"github.com/crossplane/upjet/pkg/controller"
+	"github.com/crossplane/upjet/v2/pkg/controller"
 
 	applicationkey "github.com/eaglesemanation/provider-b2/internal/controller/b2/applicationkey"
 	bucket "github.com/eaglesemanation/provider-b2/internal/controller/b2/bucket"
