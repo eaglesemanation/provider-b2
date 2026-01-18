@@ -4,19 +4,19 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: applicationkeys.b2.crossplane.io
+  name: bucketnotificationrules.b2.m.crossplane.io
 spec:
-  group: b2.crossplane.io
+  group: b2.m.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - b2
-    kind: ApplicationKey
-    listKind: ApplicationKeyList
-    plural: applicationkeys
-    singular: applicationkey
-  scope: Cluster
+    kind: BucketNotificationRules
+    listKind: BucketNotificationRulesList
+    plural: bucketnotificationrules
+    singular: bucketnotificationrules
+  scope: Namespaced
   versions:
   - additionalPrinterColumns:
     - jsonPath: .status.conditions[?(@.type=='Synced')].status
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ApplicationKey is the Schema for the ApplicationKeys API. <no
-          value>
+        description: BucketNotificationRules is the Schema for the BucketNotificationRuless
+          API. <no value>
         properties:
           apiVersion:
             description: |-
@@ -55,32 +55,22 @@ spec:
           metadata:
             type: object
           spec:
-            description: ApplicationKeySpec defines the desired state of ApplicationKey
+            description: BucketNotificationRulesSpec defines the desired state of
+              BucketNotificationRules
             properties:
-              deletionPolicy:
-                default: Delete
-                description: |-
-                  DeletionPolicy specifies what will happen to the underlying external
-                  when this managed resource is deleted - either "Delete" or "Orphan" the
-                  external resource.
-                  This field is planned to be deprecated in favor of the ManagementPolicies
-                  field in a future release. Currently, both could be set independently and
-                  non-default values would be honored if the feature flag is enabled.
-                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
-                enum:
-                - Orphan
-                - Delete
-                type: string
               forProvider:
                 properties:
                   bucketId:
-                    description: When present, restricts access to one bucket.
+                    description: The ID of the bucket.
                     type: string
                   bucketRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
                     properties:
                       name:
                         description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
                         type: string
                       policy:
                         description: Policies for referencing.
@@ -124,6 +114,9 @@ spec:
                         description: MatchLabels ensures an object with matching labels
                           is selected.
                         type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
                       policy:
                         description: Policies for selection.
                         properties:
@@ -150,20 +143,69 @@ spec:
                             type: string
                         type: object
                     type: object
-                  capabilities:
-                    description: A set of strings, each one naming a capability the
-                      key has.
+                  notificationRules:
+                    description: An array of Event Notification Rules.
                     items:
-                      type: string
+                      properties:
+                        eventTypes:
+                          description: The list of event types for the event notification
+                            rule.
+                          items:
+                            type: string
+                          type: array
+                        isEnabled:
+                          description: Whether the event notification rule is enabled.
+                          type: boolean
+                        name:
+                          description: A name for the event notification rule. The
+                            name must be unique among the bucket's notification rules.
+                          type: string
+                        objectNamePrefix:
+                          description: Specifies which object(s) in the bucket the
+                            event notification rule applies to.
+                          type: string
+                        targetConfiguration:
+                          description: The target configuration for the event notification
+                            rule.
+                          items:
+                            properties:
+                              customHeaders:
+                                description: When present, additional header name/value
+                                  pairs to be sent on the webhook invocation.
+                                items:
+                                  properties:
+                                    name:
+                                      description: Name of the header.
+                                      type: string
+                                    value:
+                                      description: Value of the header.
+                                      type: string
+                                  type: object
+                                type: array
+                              hmacSha256SigningSecretSecretRef:
+                                description: The signing secret for use in verifying
+                                  the X-Bz-Event-Notification-Signature.
+                                properties:
+                                  key:
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                type: object
+                              targetType:
+                                description: The type of the target configuration,
+                                  currently "webhook" only.
+                                type: string
+                              url:
+                                description: The URL for the webhook.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
                     type: array
-                    x-kubernetes-list-type: set
-                  keyName:
-                    description: The name of the key.
-                    type: string
-                  namePrefix:
-                    description: When present, restricts access to files whose names
-                      start with the prefix.
-                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -179,13 +221,16 @@ spec:
                   autoscaler.
                 properties:
                   bucketId:
-                    description: When present, restricts access to one bucket.
+                    description: The ID of the bucket.
                     type: string
                   bucketRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
                     properties:
                       name:
                         description: Name of the referenced object.
+                        type: string
+                      namespace:
+                        description: Namespace of the referenced object
                         type: string
                       policy:
                         description: Policies for referencing.
@@ -229,6 +274,9 @@ spec:
                         description: MatchLabels ensures an object with matching labels
                           is selected.
                         type: object
+                      namespace:
+                        description: Namespace for the selector
+                        type: string
                       policy:
                         description: Policies for selection.
                         properties:
@@ -255,20 +303,69 @@ spec:
                             type: string
                         type: object
                     type: object
-                  capabilities:
-                    description: A set of strings, each one naming a capability the
-                      key has.
+                  notificationRules:
+                    description: An array of Event Notification Rules.
                     items:
-                      type: string
+                      properties:
+                        eventTypes:
+                          description: The list of event types for the event notification
+                            rule.
+                          items:
+                            type: string
+                          type: array
+                        isEnabled:
+                          description: Whether the event notification rule is enabled.
+                          type: boolean
+                        name:
+                          description: A name for the event notification rule. The
+                            name must be unique among the bucket's notification rules.
+                          type: string
+                        objectNamePrefix:
+                          description: Specifies which object(s) in the bucket the
+                            event notification rule applies to.
+                          type: string
+                        targetConfiguration:
+                          description: The target configuration for the event notification
+                            rule.
+                          items:
+                            properties:
+                              customHeaders:
+                                description: When present, additional header name/value
+                                  pairs to be sent on the webhook invocation.
+                                items:
+                                  properties:
+                                    name:
+                                      description: Name of the header.
+                                      type: string
+                                    value:
+                                      description: Value of the header.
+                                      type: string
+                                  type: object
+                                type: array
+                              hmacSha256SigningSecretSecretRef:
+                                description: The signing secret for use in verifying
+                                  the X-Bz-Event-Notification-Signature.
+                                properties:
+                                  key:
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                type: object
+                              targetType:
+                                description: The type of the target configuration,
+                                  currently "webhook" only.
+                                type: string
+                              url:
+                                description: The URL for the webhook.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
                     type: array
-                    x-kubernetes-list-type: set
-                  keyName:
-                    description: The name of the key.
-                    type: string
-                  namePrefix:
-                    description: When present, restricts access to files whose names
-                      start with the prefix.
-                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -278,10 +375,6 @@ spec:
                   through a Crossplane feature flag.
                   ManagementPolicies specify the array of actions Crossplane is allowed to
                   take on the managed and external resources.
-                  This field is planned to replace the DeletionPolicy field in a future
-                  release. Currently, both could be set independently and non-default
-                  values would be honored if the feature flag is enabled. If both are
-                  custom, the DeletionPolicy field will be ignored.
                   See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
                   and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
                 items:
@@ -299,41 +392,21 @@ spec:
                 type: array
               providerConfigRef:
                 default:
+                  kind: ClusterProviderConfig
                   name: default
                 description: |-
                   ProviderConfigReference specifies how the provider that will be used to
                   create, observe, update, and delete this managed resource should be
                   configured.
                 properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
                   name:
                     description: Name of the referenced object.
                     type: string
-                  policy:
-                    description: Policies for referencing.
-                    properties:
-                      resolution:
-                        default: Required
-                        description: |-
-                          Resolution specifies whether resolution of this reference is required.
-                          The default is 'Required', which means the reconcile will fail if the
-                          reference cannot be resolved. 'Optional' means this reference will be
-                          a no-op if it cannot be resolved.
-                        enum:
-                        - Required
-                        - Optional
-                        type: string
-                      resolve:
-                        description: |-
-                          Resolve specifies when this reference should be resolved. The default
-                          is 'IfNotPresent', which will attempt to resolve the reference only when
-                          the corresponding field is not present. Use 'Always' to resolve the
-                          reference on every reconcile.
-                        enum:
-                        - Always
-                        - IfNotPresent
-                        type: string
-                    type: object
                 required:
+                - kind
                 - name
                 type: object
               writeConnectionSecretToRef:
@@ -346,55 +419,85 @@ spec:
                   name:
                     description: Name of the secret.
                     type: string
-                  namespace:
-                    description: Namespace of the secret.
-                    type: string
                 required:
                 - name
-                - namespace
                 type: object
             required:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.capabilities is a required parameter
+            - message: spec.forProvider.notificationRules is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.capabilities)
-                || (has(self.initProvider) && has(self.initProvider.capabilities))'
-            - message: spec.forProvider.keyName is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.keyName)
-                || (has(self.initProvider) && has(self.initProvider.keyName))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.notificationRules)
+                || (has(self.initProvider) && has(self.initProvider.notificationRules))'
           status:
-            description: ApplicationKeyStatus defines the observed state of ApplicationKey.
+            description: BucketNotificationRulesStatus defines the observed state
+              of BucketNotificationRules.
             properties:
               atProvider:
                 properties:
                   bucketId:
-                    description: When present, restricts access to one bucket.
+                    description: The ID of the bucket.
                     type: string
-                  capabilities:
-                    description: A set of strings, each one naming a capability the
-                      key has.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
                   id:
                     type: string
-                  keyName:
-                    description: The name of the key.
-                    type: string
-                  namePrefix:
-                    description: When present, restricts access to files whose names
-                      start with the prefix.
-                    type: string
-                  options:
-                    description: List of application key options.
+                  notificationRules:
+                    description: An array of Event Notification Rules.
                     items:
-                      type: string
+                      properties:
+                        eventTypes:
+                          description: The list of event types for the event notification
+                            rule.
+                          items:
+                            type: string
+                          type: array
+                        isEnabled:
+                          description: Whether the event notification rule is enabled.
+                          type: boolean
+                        isSuspended:
+                          description: Whether the event notification rule is suspended.
+                          type: boolean
+                        name:
+                          description: A name for the event notification rule. The
+                            name must be unique among the bucket's notification rules.
+                          type: string
+                        objectNamePrefix:
+                          description: Specifies which object(s) in the bucket the
+                            event notification rule applies to.
+                          type: string
+                        suspensionReason:
+                          description: A brief description of why the event notification
+                            rule was suspended.
+                          type: string
+                        targetConfiguration:
+                          description: The target configuration for the event notification
+                            rule.
+                          items:
+                            properties:
+                              customHeaders:
+                                description: When present, additional header name/value
+                                  pairs to be sent on the webhook invocation.
+                                items:
+                                  properties:
+                                    name:
+                                      description: Name of the header.
+                                      type: string
+                                    value:
+                                      description: Value of the header.
+                                      type: string
+                                  type: object
+                                type: array
+                              targetType:
+                                description: The type of the target configuration,
+                                  currently "webhook" only.
+                                type: string
+                              url:
+                                description: The URL for the webhook.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
                     type: array
-                    x-kubernetes-list-type: set
                 type: object
               conditions:
                 description: Conditions of the resource.

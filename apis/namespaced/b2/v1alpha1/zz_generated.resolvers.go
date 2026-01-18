@@ -15,12 +15,12 @@ import (
 
 // ResolveReferences of this ApplicationKey.
 func (mg *ApplicationKey) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPIResolver(c, mg)
+	r := reference.NewAPINamespacedResolver(c, mg)
 
-	var rsp reference.ResolutionResponse
+	var rsp reference.NamespacedResolutionResponse
 	var err error
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -37,7 +37,7 @@ func (mg *ApplicationKey) ResolveReferences(ctx context.Context, c client.Reader
 	mg.Spec.ForProvider.BucketID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -59,12 +59,12 @@ func (mg *ApplicationKey) ResolveReferences(ctx context.Context, c client.Reader
 
 // ResolveReferences of this BucketFileVersion.
 func (mg *BucketFileVersion) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPIResolver(c, mg)
+	r := reference.NewAPINamespacedResolver(c, mg)
 
-	var rsp reference.ResolutionResponse
+	var rsp reference.NamespacedResolutionResponse
 	var err error
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -81,7 +81,7 @@ func (mg *BucketFileVersion) ResolveReferences(ctx context.Context, c client.Rea
 	mg.Spec.ForProvider.BucketID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -103,12 +103,12 @@ func (mg *BucketFileVersion) ResolveReferences(ctx context.Context, c client.Rea
 
 // ResolveReferences of this BucketNotificationRules.
 func (mg *BucketNotificationRules) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPIResolver(c, mg)
+	r := reference.NewAPINamespacedResolver(c, mg)
 
-	var rsp reference.ResolutionResponse
+	var rsp reference.NamespacedResolutionResponse
 	var err error
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -125,7 +125,7 @@ func (mg *BucketNotificationRules) ResolveReferences(ctx context.Context, c clie
 	mg.Spec.ForProvider.BucketID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),

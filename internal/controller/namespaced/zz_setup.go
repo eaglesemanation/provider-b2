@@ -9,11 +9,11 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/controller"
 
-	applicationkey "github.com/eaglesemanation/provider-b2/internal/controller/cluster/b2/applicationkey"
-	bucket "github.com/eaglesemanation/provider-b2/internal/controller/cluster/b2/bucket"
-	bucketfileversion "github.com/eaglesemanation/provider-b2/internal/controller/cluster/b2/bucketfileversion"
-	bucketnotificationrules "github.com/eaglesemanation/provider-b2/internal/controller/cluster/b2/bucketnotificationrules"
-	providerconfig "github.com/eaglesemanation/provider-b2/internal/controller/cluster/providerconfig"
+	applicationkey "github.com/eaglesemanation/provider-b2/internal/controller/namespaced/b2/applicationkey"
+	bucket "github.com/eaglesemanation/provider-b2/internal/controller/namespaced/b2/bucket"
+	bucketfileversion "github.com/eaglesemanation/provider-b2/internal/controller/namespaced/b2/bucketfileversion"
+	bucketnotificationrules "github.com/eaglesemanation/provider-b2/internal/controller/namespaced/b2/bucketnotificationrules"
+	providerconfig "github.com/eaglesemanation/provider-b2/internal/controller/namespaced/providerconfig"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to

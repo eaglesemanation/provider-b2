@@ -11,23 +11,24 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
 type BucketNotificationRulesInitParameters struct {
 
 	// The ID of the bucket.
-	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/cluster/b2/v1alpha1.Bucket
+	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.Reference `json:"bucketRef,omitempty" tf:"-"`
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
 
 	// Selector for a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.Selector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// An array of Event Notification Rules.
 	NotificationRules []NotificationRulesInitParameters `json:"notificationRules,omitempty" tf:"notification_rules,omitempty"`
@@ -47,7 +48,7 @@ type BucketNotificationRulesObservation struct {
 type BucketNotificationRulesParameters struct {
 
 	// The ID of the bucket.
-	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/cluster/b2/v1alpha1.Bucket
+	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	// +kubebuilder:validation:Optional
@@ -55,11 +56,11 @@ type BucketNotificationRulesParameters struct {
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.Reference `json:"bucketRef,omitempty" tf:"-"`
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
 
 	// Selector for a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.Selector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// An array of Event Notification Rules.
 	// +kubebuilder:validation:Optional
@@ -166,7 +167,7 @@ type TargetConfigurationInitParameters struct {
 	CustomHeaders []CustomHeadersInitParameters `json:"customHeaders,omitempty" tf:"custom_headers,omitempty"`
 
 	// The signing secret for use in verifying the X-Bz-Event-Notification-Signature.
-	HMACSha256SigningSecretSecretRef *v1.SecretKeySelector `json:"hmacSha256SigningSecretSecretRef,omitempty" tf:"-"`
+	HMACSha256SigningSecretSecretRef *v1.LocalSecretKeySelector `json:"hmacSha256SigningSecretSecretRef,omitempty" tf:"-"`
 
 	// The type of the target configuration, currently "webhook" only.
 	TargetType *string `json:"targetType,omitempty" tf:"target_type,omitempty"`
@@ -195,7 +196,7 @@ type TargetConfigurationParameters struct {
 
 	// The signing secret for use in verifying the X-Bz-Event-Notification-Signature.
 	// +kubebuilder:validation:Optional
-	HMACSha256SigningSecretSecretRef *v1.SecretKeySelector `json:"hmacSha256SigningSecretSecretRef,omitempty" tf:"-"`
+	HMACSha256SigningSecretSecretRef *v1.LocalSecretKeySelector `json:"hmacSha256SigningSecretSecretRef,omitempty" tf:"-"`
 
 	// The type of the target configuration, currently "webhook" only.
 	// +kubebuilder:validation:Optional
@@ -208,8 +209,8 @@ type TargetConfigurationParameters struct {
 
 // BucketNotificationRulesSpec defines the desired state of BucketNotificationRules
 type BucketNotificationRulesSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     BucketNotificationRulesParameters `json:"forProvider"`
+	v2.ManagedResourceSpec `json:",inline"`
+	ForProvider            BucketNotificationRulesParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -238,7 +239,7 @@ type BucketNotificationRulesStatus struct {
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,b2}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,managed,b2}
 type BucketNotificationRules struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

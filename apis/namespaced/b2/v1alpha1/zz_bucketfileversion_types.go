@@ -11,23 +11,24 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
 type BucketFileVersionInitParameters struct {
 
 	// The ID of the bucket.
-	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/cluster/b2/v1alpha1.Bucket
+	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.Reference `json:"bucketRef,omitempty" tf:"-"`
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
 
 	// Selector for a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.Selector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// Content type. If not set, it will be set based on the file extension.
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
@@ -91,7 +92,7 @@ type BucketFileVersionObservation struct {
 type BucketFileVersionParameters struct {
 
 	// The ID of the bucket.
-	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/cluster/b2/v1alpha1.Bucket
+	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	// +kubebuilder:validation:Optional
@@ -99,11 +100,11 @@ type BucketFileVersionParameters struct {
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.Reference `json:"bucketRef,omitempty" tf:"-"`
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
 
 	// Selector for a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.Selector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// Content type. If not set, it will be set based on the file extension.
 	// +kubebuilder:validation:Optional
@@ -133,7 +134,7 @@ type KeyInitParameters struct {
 	KeyID *string `json:"keyId,omitempty" tf:"key_id,omitempty"`
 
 	// Secret key value, in standard Base 64 encoding (RFC 4648)
-	SecretB64SecretRef *v1.SecretKeySelector `json:"secretB64SecretRef,omitempty" tf:"-"`
+	SecretB64SecretRef *v1.LocalSecretKeySelector `json:"secretB64SecretRef,omitempty" tf:"-"`
 }
 
 type KeyObservation struct {
@@ -150,7 +151,7 @@ type KeyParameters struct {
 
 	// Secret key value, in standard Base 64 encoding (RFC 4648)
 	// +kubebuilder:validation:Optional
-	SecretB64SecretRef *v1.SecretKeySelector `json:"secretB64SecretRef,omitempty" tf:"-"`
+	SecretB64SecretRef *v1.LocalSecretKeySelector `json:"secretB64SecretRef,omitempty" tf:"-"`
 }
 
 type ServerSideEncryptionInitParameters struct {
@@ -194,8 +195,8 @@ type ServerSideEncryptionParameters struct {
 
 // BucketFileVersionSpec defines the desired state of BucketFileVersion
 type BucketFileVersionSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     BucketFileVersionParameters `json:"forProvider"`
+	v2.ManagedResourceSpec `json:",inline"`
+	ForProvider            BucketFileVersionParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -224,7 +225,7 @@ type BucketFileVersionStatus struct {
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,b2}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,managed,b2}
 type BucketFileVersion struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

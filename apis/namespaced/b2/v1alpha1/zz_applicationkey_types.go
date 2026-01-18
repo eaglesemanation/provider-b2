@@ -11,23 +11,24 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
 type ApplicationKeyInitParameters struct {
 
 	// When present, restricts access to one bucket.
-	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/cluster/b2/v1alpha1.Bucket
+	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.Reference `json:"bucketRef,omitempty" tf:"-"`
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
 
 	// Selector for a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.Selector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// A set of strings, each one naming a capability the key has.
 	// +listType=set
@@ -65,7 +66,7 @@ type ApplicationKeyObservation struct {
 type ApplicationKeyParameters struct {
 
 	// When present, restricts access to one bucket.
-	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/cluster/b2/v1alpha1.Bucket
+	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	// +kubebuilder:validation:Optional
@@ -73,11 +74,11 @@ type ApplicationKeyParameters struct {
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.Reference `json:"bucketRef,omitempty" tf:"-"`
+	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
 
 	// Selector for a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.Selector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
 	// A set of strings, each one naming a capability the key has.
 	// +kubebuilder:validation:Optional
@@ -95,8 +96,8 @@ type ApplicationKeyParameters struct {
 
 // ApplicationKeySpec defines the desired state of ApplicationKey
 type ApplicationKeySpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ApplicationKeyParameters `json:"forProvider"`
+	v2.ManagedResourceSpec `json:",inline"`
+	ForProvider            ApplicationKeyParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -125,7 +126,7 @@ type ApplicationKeyStatus struct {
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,b2}
+// +kubebuilder:resource:scope=Namespaced,categories={crossplane,managed,b2}
 type ApplicationKey struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

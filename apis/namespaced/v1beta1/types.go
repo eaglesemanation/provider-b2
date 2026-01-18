@@ -80,6 +80,8 @@ type ProviderConfigUsageList struct {
 	Items           []ProviderConfigUsage `json:"items"`
 }
 
+// +kubebuilder:object:root=true
+
 // A ClusterProviderConfig configures a Backblaze B2 provider.
 // +kubebuilder:subresource:status
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"

@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: providerconfigs.b2.crossplane.io
+  name: providerconfigs.b2.m.crossplane.io
 spec:
-  group: b2.crossplane.io
+  group: b2.m.crossplane.io
   names:
     categories:
     - crossplane
@@ -16,7 +16,7 @@ spec:
     listKind: ProviderConfigList
     plural: providerconfigs
     singular: providerconfig
-  scope: Cluster
+  scope: Namespaced
   versions:
   - additionalPrinterColumns:
     - jsonPath: .metadata.creationTimestamp

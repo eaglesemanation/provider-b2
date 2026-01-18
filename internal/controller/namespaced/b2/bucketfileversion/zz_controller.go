@@ -21,7 +21,7 @@ import (
 	"github.com/pkg/errors"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1alpha1 "github.com/eaglesemanation/provider-b2/apis/cluster/b2/v1alpha1"
+	v1alpha1 "github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1"
 	features "github.com/eaglesemanation/provider-b2/internal/features"
 )
 
