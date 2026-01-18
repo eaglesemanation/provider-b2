@@ -33,23 +33,27 @@ You can see the API reference [here](https://doc.crds.dev/github.com/eaglesemana
 
 Run code-generation pipeline:
 ```console
-go run cmd/generator/main.go "$PWD"
+make generate
+```
+
+Test an example against a Kind k8s cluster (provider config is included throug setup.sh):
+```console
+cp examples/namespaced/providerconfig/secret.yaml.tmpl examples/namespaced/providerconfig/secret.yaml # Update with valid creds
+make e2e UPTEST_EXAMPLE_LIST="examples/namespaced/bucket/bucket.yaml"
+kind delete cluster -n local-dev
 ```
 
 Run against a Kubernetes cluster:
-
 ```console
 make run
 ```
 
 Build, push, and install:
-
 ```console
 make all
 ```
 
 Build binary:
-
 ```console
 make build
 ```

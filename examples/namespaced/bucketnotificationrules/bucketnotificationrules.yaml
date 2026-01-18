@@ -16,4 +16,5 @@ spec:
           - targetType: webhook
             url: https://example.com/webhook
   providerConfigRef:
+    kind: ProviderConfig
     name: default

@@ -8,4 +8,5 @@ spec:
     bucketName: example-crossplane-bucket
     bucketType: allPrivate
   providerConfigRef:
+    kind: ProviderConfig
     name: default

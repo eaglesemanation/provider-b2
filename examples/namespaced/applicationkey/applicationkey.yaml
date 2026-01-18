@@ -11,6 +11,7 @@ spec:
     bucketRef:
       name: example-crossplane-bucket
   providerConfigRef:
+    kind: ProviderConfig
     name: default
   writeConnectionSecretToRef:
     name: example-crossplane-key
