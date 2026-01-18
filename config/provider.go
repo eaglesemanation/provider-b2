@@ -10,10 +10,14 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 
-	"github.com/eaglesemanation/provider-b2/config/applicationkey"
-	"github.com/eaglesemanation/provider-b2/config/bucket"
-	"github.com/eaglesemanation/provider-b2/config/bucketfileversion"
-	"github.com/eaglesemanation/provider-b2/config/bucketnotificationrules"
+	applicationkeyCluster "github.com/eaglesemanation/provider-b2/config/cluster/applicationkey"
+	bucketCluster "github.com/eaglesemanation/provider-b2/config/cluster/bucket"
+	bucketfileversionCluster "github.com/eaglesemanation/provider-b2/config/cluster/bucketfileversion"
+	bucketnotificationrulesCluster "github.com/eaglesemanation/provider-b2/config/cluster/bucketnotificationrules"
+	applicationkeyNamespaced "github.com/eaglesemanation/provider-b2/config/namespaced/applicationkey"
+	bucketNamespaced "github.com/eaglesemanation/provider-b2/config/namespaced/bucket"
+	bucketfileversionNamespaced "github.com/eaglesemanation/provider-b2/config/namespaced/bucketfileversion"
+	bucketnotificationrulesNamespaced "github.com/eaglesemanation/provider-b2/config/namespaced/bucketnotificationrules"
 )
 
 const (
@@ -39,10 +43,34 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		applicationkey.Configure,
-		bucket.Configure,
-		bucketfileversion.Configure,
-		bucketnotificationrules.Configure,
+		applicationkeyCluster.Configure,
+		bucketCluster.Configure,
+		bucketfileversionCluster.Configure,
+		bucketnotificationrulesCluster.Configure,
+	} {
+		configure(pc)
+	}
+
+	pc.ConfigureResources()
+	return pc
+}
+
+// GetProviderNamespaced returns provider configuration
+func GetProviderNamespaced() *ujconfig.Provider {
+	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
+		ujconfig.WithRootGroup("m.crossplane.io"),
+		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithFeaturesPackage("internal/features"),
+		ujconfig.WithDefaultResourceOptions(
+			ExternalNameConfigurations(),
+		))
+
+	for _, configure := range []func(provider *ujconfig.Provider){
+		// add custom config functions
+		applicationkeyNamespaced.Configure,
+		bucketNamespaced.Configure,
+		bucketfileversionNamespaced.Configure,
+		bucketnotificationrulesNamespaced.Configure,
 	} {
 		configure(pc)
 	}
