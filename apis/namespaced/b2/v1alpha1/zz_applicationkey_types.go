@@ -16,11 +16,15 @@ import (
 
 type ApplicationKeyInitParameters struct {
 
-	// When present, restricts access to one bucket.
+	// When present, restricts access to one bucket. Conflicts with `bucket_ids`. **Modifying this attribute will force creation of a new resource.**
 	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
+
+	// When provided, the new key can only access the specified buckets. **Modifying this attribute will force creation of a new resource.**
+	// +listType=set
+	BucketIds []*string `json:"bucketIds,omitempty" tf:"bucket_ids,omitempty"`
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
@@ -30,32 +34,36 @@ type ApplicationKeyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
-	// A set of strings, each one naming a capability the key has.
+	// A set of strings, each one naming a capability the key has. **Modifying this attribute will force creation of a new resource.**
 	// +listType=set
 	Capabilities []*string `json:"capabilities,omitempty" tf:"capabilities,omitempty"`
 
-	// The name of the key.
+	// The name of the key. **Modifying this attribute will force creation of a new resource.**
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
 
-	// When present, restricts access to files whose names start with the prefix.
+	// When present, restricts access to files whose names start with the prefix. **Modifying this attribute will force creation of a new resource.**
 	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
 }
 
 type ApplicationKeyObservation struct {
 
-	// When present, restricts access to one bucket.
+	// When present, restricts access to one bucket. Conflicts with `bucket_ids`. **Modifying this attribute will force creation of a new resource.**
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
 
-	// A set of strings, each one naming a capability the key has.
+	// When provided, the new key can only access the specified buckets. **Modifying this attribute will force creation of a new resource.**
+	// +listType=set
+	BucketIds []*string `json:"bucketIds,omitempty" tf:"bucket_ids,omitempty"`
+
+	// A set of strings, each one naming a capability the key has. **Modifying this attribute will force creation of a new resource.**
 	// +listType=set
 	Capabilities []*string `json:"capabilities,omitempty" tf:"capabilities,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The name of the key.
+	// The name of the key. **Modifying this attribute will force creation of a new resource.**
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
 
-	// When present, restricts access to files whose names start with the prefix.
+	// When present, restricts access to files whose names start with the prefix. **Modifying this attribute will force creation of a new resource.**
 	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
 
 	// List of application key options.
@@ -65,12 +73,17 @@ type ApplicationKeyObservation struct {
 
 type ApplicationKeyParameters struct {
 
-	// When present, restricts access to one bucket.
+	// When present, restricts access to one bucket. Conflicts with `bucket_ids`. **Modifying this attribute will force creation of a new resource.**
 	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	// +kubebuilder:validation:Optional
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
+
+	// When provided, the new key can only access the specified buckets. **Modifying this attribute will force creation of a new resource.**
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	BucketIds []*string `json:"bucketIds,omitempty" tf:"bucket_ids,omitempty"`
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
@@ -80,16 +93,16 @@ type ApplicationKeyParameters struct {
 	// +kubebuilder:validation:Optional
 	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
-	// A set of strings, each one naming a capability the key has.
+	// A set of strings, each one naming a capability the key has. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Capabilities []*string `json:"capabilities,omitempty" tf:"capabilities,omitempty"`
 
-	// The name of the key.
+	// The name of the key. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	KeyName *string `json:"keyName,omitempty" tf:"key_name,omitempty"`
 
-	// When present, restricts access to files whose names start with the prefix.
+	// When present, restricts access to files whose names start with the prefix. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
 }

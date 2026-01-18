@@ -74,7 +74,8 @@ spec:
               forProvider:
                 properties:
                   bucketId:
-                    description: The ID of the bucket.
+                    description: The ID of the bucket. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   bucketRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
@@ -152,20 +153,24 @@ spec:
                     type: object
                   contentType:
                     description: Content type. If not set, it will be set based on
-                      the file extension.
+                      the file extension. **Modifying this attribute will force creation
+                      of a new resource.**
                     type: string
                   fileInfo:
                     additionalProperties:
                       type: string
                     description: The custom information that is uploaded with the
-                      file.
+                      file. **Modifying this attribute will force creation of a new
+                      resource.**
                     type: object
                     x-kubernetes-map-type: granular
                   fileName:
-                    description: The name of the B2 file.
+                    description: The name of the B2 file. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   serverSideEncryption:
-                    description: Server-side encryption settings.
+                    description: Server-side encryption settings. **Modifying this
+                      attribute will force creation of a new resource.**
                     items:
                       properties:
                         algorithm:
@@ -177,11 +182,11 @@ spec:
                           items:
                             properties:
                               keyId:
-                                description: Key identifier stored in file info metadata
+                                description: Key identifier stored in file info metadata.
                                 type: string
                               secretB64SecretRef:
                                 description: Secret key value, in standard Base 64
-                                  encoding (RFC 4648)
+                                  encoding (RFC 4648).
                                 properties:
                                   key:
                                     description: The key to select.
@@ -205,7 +210,8 @@ spec:
                       type: object
                     type: array
                   source:
-                    description: Path to the local file.
+                    description: Path to the local file. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                 type: object
               initProvider:
@@ -222,7 +228,8 @@ spec:
                   autoscaler.
                 properties:
                   bucketId:
-                    description: The ID of the bucket.
+                    description: The ID of the bucket. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   bucketRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
@@ -300,20 +307,24 @@ spec:
                     type: object
                   contentType:
                     description: Content type. If not set, it will be set based on
-                      the file extension.
+                      the file extension. **Modifying this attribute will force creation
+                      of a new resource.**
                     type: string
                   fileInfo:
                     additionalProperties:
                       type: string
                     description: The custom information that is uploaded with the
-                      file.
+                      file. **Modifying this attribute will force creation of a new
+                      resource.**
                     type: object
                     x-kubernetes-map-type: granular
                   fileName:
-                    description: The name of the B2 file.
+                    description: The name of the B2 file. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   serverSideEncryption:
-                    description: Server-side encryption settings.
+                    description: Server-side encryption settings. **Modifying this
+                      attribute will force creation of a new resource.**
                     items:
                       properties:
                         algorithm:
@@ -325,11 +336,11 @@ spec:
                           items:
                             properties:
                               keyId:
-                                description: Key identifier stored in file info metadata
+                                description: Key identifier stored in file info metadata.
                                 type: string
                               secretB64SecretRef:
                                 description: Secret key value, in standard Base 64
-                                  encoding (RFC 4648)
+                                  encoding (RFC 4648).
                                 properties:
                                   key:
                                     description: The key to select.
@@ -353,7 +364,8 @@ spec:
                       type: object
                     type: array
                   source:
-                    description: Path to the local file.
+                    description: Path to the local file. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                 type: object
               managementPolicies:
@@ -461,7 +473,8 @@ spec:
                       values added in the future.
                     type: string
                   bucketId:
-                    description: The ID of the bucket.
+                    description: The ID of the bucket. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   contentMd5:
                     description: MD5 sum of the content.
@@ -471,7 +484,8 @@ spec:
                     type: string
                   contentType:
                     description: Content type. If not set, it will be set based on
-                      the file extension.
+                      the file extension. **Modifying this attribute will force creation
+                      of a new resource.**
                     type: string
                   fileId:
                     description: The unique identifier for this version of this file.
@@ -480,16 +494,19 @@ spec:
                     additionalProperties:
                       type: string
                     description: The custom information that is uploaded with the
-                      file.
+                      file. **Modifying this attribute will force creation of a new
+                      resource.**
                     type: object
                     x-kubernetes-map-type: granular
                   fileName:
-                    description: The name of the B2 file.
+                    description: The name of the B2 file. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   id:
                     type: string
                   serverSideEncryption:
-                    description: Server-side encryption settings.
+                    description: Server-side encryption settings. **Modifying this
+                      attribute will force creation of a new resource.**
                     items:
                       properties:
                         algorithm:
@@ -501,7 +518,7 @@ spec:
                           items:
                             properties:
                               keyId:
-                                description: Key identifier stored in file info metadata
+                                description: Key identifier stored in file info metadata.
                                 type: string
                             type: object
                           type: array
@@ -514,7 +531,8 @@ spec:
                     description: The file size.
                     type: number
                   source:
-                    description: Path to the local file.
+                    description: Path to the local file. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   uploadTimestamp:
                     description: This is a UTC time when this file was uploaded.

@@ -61,7 +61,8 @@ spec:
               forProvider:
                 properties:
                   bucketId:
-                    description: The ID of the bucket.
+                    description: The ID of the bucket. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   bucketRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
@@ -155,6 +156,7 @@ spec:
                           type: array
                         isEnabled:
                           description: Whether the event notification rule is enabled.
+                            Defaults to `true`.
                           type: boolean
                         name:
                           description: A name for the event notification rule. The
@@ -221,7 +223,8 @@ spec:
                   autoscaler.
                 properties:
                   bucketId:
-                    description: The ID of the bucket.
+                    description: The ID of the bucket. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   bucketRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
@@ -315,6 +318,7 @@ spec:
                           type: array
                         isEnabled:
                           description: Whether the event notification rule is enabled.
+                            Defaults to `true`.
                           type: boolean
                         name:
                           description: A name for the event notification rule. The
@@ -437,7 +441,8 @@ spec:
               atProvider:
                 properties:
                   bucketId:
-                    description: The ID of the bucket.
+                    description: The ID of the bucket. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   id:
                     type: string
@@ -453,6 +458,7 @@ spec:
                           type: array
                         isEnabled:
                           description: Whether the event notification rule is enabled.
+                            Defaults to `true`.
                           type: boolean
                         isSuspended:
                           description: Whether the event notification rule is suspended.

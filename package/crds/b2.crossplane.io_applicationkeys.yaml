@@ -74,8 +74,18 @@ spec:
               forProvider:
                 properties:
                   bucketId:
-                    description: When present, restricts access to one bucket.
+                    description: When present, restricts access to one bucket. Conflicts
+                      with `bucket_ids`. **Modifying this attribute will force creation
+                      of a new resource.**
                     type: string
+                  bucketIds:
+                    description: When provided, the new key can only access the specified
+                      buckets. **Modifying this attribute will force creation of a
+                      new resource.**
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   bucketRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
                     properties:
@@ -152,17 +162,20 @@ spec:
                     type: object
                   capabilities:
                     description: A set of strings, each one naming a capability the
-                      key has.
+                      key has. **Modifying this attribute will force creation of a
+                      new resource.**
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   keyName:
-                    description: The name of the key.
+                    description: The name of the key. **Modifying this attribute will
+                      force creation of a new resource.**
                     type: string
                   namePrefix:
                     description: When present, restricts access to files whose names
-                      start with the prefix.
+                      start with the prefix. **Modifying this attribute will force
+                      creation of a new resource.**
                     type: string
                 type: object
               initProvider:
@@ -179,8 +192,18 @@ spec:
                   autoscaler.
                 properties:
                   bucketId:
-                    description: When present, restricts access to one bucket.
+                    description: When present, restricts access to one bucket. Conflicts
+                      with `bucket_ids`. **Modifying this attribute will force creation
+                      of a new resource.**
                     type: string
+                  bucketIds:
+                    description: When provided, the new key can only access the specified
+                      buckets. **Modifying this attribute will force creation of a
+                      new resource.**
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   bucketRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
                     properties:
@@ -257,17 +280,20 @@ spec:
                     type: object
                   capabilities:
                     description: A set of strings, each one naming a capability the
-                      key has.
+                      key has. **Modifying this attribute will force creation of a
+                      new resource.**
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   keyName:
-                    description: The name of the key.
+                    description: The name of the key. **Modifying this attribute will
+                      force creation of a new resource.**
                     type: string
                   namePrefix:
                     description: When present, restricts access to files whose names
-                      start with the prefix.
+                      start with the prefix. **Modifying this attribute will force
+                      creation of a new resource.**
                     type: string
                 type: object
               managementPolicies:
@@ -371,11 +397,22 @@ spec:
               atProvider:
                 properties:
                   bucketId:
-                    description: When present, restricts access to one bucket.
+                    description: When present, restricts access to one bucket. Conflicts
+                      with `bucket_ids`. **Modifying this attribute will force creation
+                      of a new resource.**
                     type: string
+                  bucketIds:
+                    description: When provided, the new key can only access the specified
+                      buckets. **Modifying this attribute will force creation of a
+                      new resource.**
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   capabilities:
                     description: A set of strings, each one naming a capability the
-                      key has.
+                      key has. **Modifying this attribute will force creation of a
+                      new resource.**
                     items:
                       type: string
                     type: array
@@ -383,11 +420,13 @@ spec:
                   id:
                     type: string
                   keyName:
-                    description: The name of the key.
+                    description: The name of the key. **Modifying this attribute will
+                      force creation of a new resource.**
                     type: string
                   namePrefix:
                     description: When present, restricts access to files whose names
-                      start with the prefix.
+                      start with the prefix. **Modifying this attribute will force
+                      creation of a new resource.**
                     type: string
                   options:
                     description: List of application key options.

@@ -16,7 +16,7 @@ import (
 
 type BucketNotificationRulesInitParameters struct {
 
-	// The ID of the bucket.
+	// The ID of the bucket. **Modifying this attribute will force creation of a new resource.**
 	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
@@ -36,7 +36,7 @@ type BucketNotificationRulesInitParameters struct {
 
 type BucketNotificationRulesObservation struct {
 
-	// The ID of the bucket.
+	// The ID of the bucket. **Modifying this attribute will force creation of a new resource.**
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -47,7 +47,7 @@ type BucketNotificationRulesObservation struct {
 
 type BucketNotificationRulesParameters struct {
 
-	// The ID of the bucket.
+	// The ID of the bucket. **Modifying this attribute will force creation of a new resource.**
 	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
@@ -101,7 +101,7 @@ type NotificationRulesInitParameters struct {
 	// The list of event types for the event notification rule.
 	EventTypes []*string `json:"eventTypes,omitempty" tf:"event_types,omitempty"`
 
-	// Whether the event notification rule is enabled.
+	// Whether the event notification rule is enabled. Defaults to `true`.
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
 	// A name for the event notification rule. The name must be unique among the bucket's notification rules.
@@ -119,7 +119,7 @@ type NotificationRulesObservation struct {
 	// The list of event types for the event notification rule.
 	EventTypes []*string `json:"eventTypes,omitempty" tf:"event_types,omitempty"`
 
-	// Whether the event notification rule is enabled.
+	// Whether the event notification rule is enabled. Defaults to `true`.
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
 	// Whether the event notification rule is suspended.
@@ -144,7 +144,7 @@ type NotificationRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	EventTypes []*string `json:"eventTypes" tf:"event_types,omitempty"`
 
-	// Whether the event notification rule is enabled.
+	// Whether the event notification rule is enabled. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 

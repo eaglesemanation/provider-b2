@@ -16,7 +16,7 @@ import (
 
 type BucketFileVersionInitParameters struct {
 
-	// The ID of the bucket.
+	// The ID of the bucket. **Modifying this attribute will force creation of a new resource.**
 	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
@@ -30,20 +30,20 @@ type BucketFileVersionInitParameters struct {
 	// +kubebuilder:validation:Optional
 	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
-	// Content type. If not set, it will be set based on the file extension.
+	// Content type. If not set, it will be set based on the file extension. **Modifying this attribute will force creation of a new resource.**
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
-	// The custom information that is uploaded with the file.
+	// The custom information that is uploaded with the file. **Modifying this attribute will force creation of a new resource.**
 	// +mapType=granular
 	FileInfo map[string]*string `json:"fileInfo,omitempty" tf:"file_info,omitempty"`
 
-	// The name of the B2 file.
+	// The name of the B2 file. **Modifying this attribute will force creation of a new resource.**
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
-	// Server-side encryption settings.
+	// Server-side encryption settings. **Modifying this attribute will force creation of a new resource.**
 	ServerSideEncryption []ServerSideEncryptionInitParameters `json:"serverSideEncryption,omitempty" tf:"server_side_encryption,omitempty"`
 
-	// Path to the local file.
+	// Path to the local file. **Modifying this attribute will force creation of a new resource.**
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
 
@@ -52,7 +52,7 @@ type BucketFileVersionObservation struct {
 	// One of 'start', 'upload', 'hide', 'folder', or other values added in the future.
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// The ID of the bucket.
+	// The ID of the bucket. **Modifying this attribute will force creation of a new resource.**
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
 
 	// MD5 sum of the content.
@@ -61,28 +61,28 @@ type BucketFileVersionObservation struct {
 	// SHA1 hash of the content.
 	ContentSha1 *string `json:"contentSha1,omitempty" tf:"content_sha1,omitempty"`
 
-	// Content type. If not set, it will be set based on the file extension.
+	// Content type. If not set, it will be set based on the file extension. **Modifying this attribute will force creation of a new resource.**
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
 	// The unique identifier for this version of this file.
 	FileID *string `json:"fileId,omitempty" tf:"file_id,omitempty"`
 
-	// The custom information that is uploaded with the file.
+	// The custom information that is uploaded with the file. **Modifying this attribute will force creation of a new resource.**
 	// +mapType=granular
 	FileInfo map[string]*string `json:"fileInfo,omitempty" tf:"file_info,omitempty"`
 
-	// The name of the B2 file.
+	// The name of the B2 file. **Modifying this attribute will force creation of a new resource.**
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Server-side encryption settings.
+	// Server-side encryption settings. **Modifying this attribute will force creation of a new resource.**
 	ServerSideEncryption []ServerSideEncryptionObservation `json:"serverSideEncryption,omitempty" tf:"server_side_encryption,omitempty"`
 
 	// The file size.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
-	// Path to the local file.
+	// Path to the local file. **Modifying this attribute will force creation of a new resource.**
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// This is a UTC time when this file was uploaded.
@@ -91,7 +91,7 @@ type BucketFileVersionObservation struct {
 
 type BucketFileVersionParameters struct {
 
-	// The ID of the bucket.
+	// The ID of the bucket. **Modifying this attribute will force creation of a new resource.**
 	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +crossplane:generate:reference:refFieldName=BucketRef
 	// +crossplane:generate:reference:selectorFieldName=BucketSelector
@@ -106,50 +106,50 @@ type BucketFileVersionParameters struct {
 	// +kubebuilder:validation:Optional
 	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
 
-	// Content type. If not set, it will be set based on the file extension.
+	// Content type. If not set, it will be set based on the file extension. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
-	// The custom information that is uploaded with the file.
+	// The custom information that is uploaded with the file. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	FileInfo map[string]*string `json:"fileInfo,omitempty" tf:"file_info,omitempty"`
 
-	// The name of the B2 file.
+	// The name of the B2 file. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
-	// Server-side encryption settings.
+	// Server-side encryption settings. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	ServerSideEncryption []ServerSideEncryptionParameters `json:"serverSideEncryption,omitempty" tf:"server_side_encryption,omitempty"`
 
-	// Path to the local file.
+	// Path to the local file. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
 
 type KeyInitParameters struct {
 
-	// Key identifier stored in file info metadata
+	// Key identifier stored in file info metadata.
 	KeyID *string `json:"keyId,omitempty" tf:"key_id,omitempty"`
 
-	// Secret key value, in standard Base 64 encoding (RFC 4648)
+	// Secret key value, in standard Base 64 encoding (RFC 4648).
 	SecretB64SecretRef *v1.LocalSecretKeySelector `json:"secretB64SecretRef,omitempty" tf:"-"`
 }
 
 type KeyObservation struct {
 
-	// Key identifier stored in file info metadata
+	// Key identifier stored in file info metadata.
 	KeyID *string `json:"keyId,omitempty" tf:"key_id,omitempty"`
 }
 
 type KeyParameters struct {
 
-	// Key identifier stored in file info metadata
+	// Key identifier stored in file info metadata.
 	// +kubebuilder:validation:Optional
 	KeyID *string `json:"keyId,omitempty" tf:"key_id,omitempty"`
 
-	// Secret key value, in standard Base 64 encoding (RFC 4648)
+	// Secret key value, in standard Base 64 encoding (RFC 4648).
 	// +kubebuilder:validation:Optional
 	SecretB64SecretRef *v1.LocalSecretKeySelector `json:"secretB64SecretRef,omitempty" tf:"-"`
 }

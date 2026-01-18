@@ -20,7 +20,7 @@ type BucketInitParameters struct {
 	// +mapType=granular
 	BucketInfo map[string]*string `json:"bucketInfo,omitempty" tf:"bucket_info,omitempty"`
 
-	// The name of the bucket.
+	// The name of the bucket. **Modifying this attribute will force creation of a new resource.**
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
 	// The bucket type. Either 'allPublic', meaning that files in this bucket can be downloaded by anybody, or 'allPrivate'.
@@ -51,7 +51,7 @@ type BucketObservation struct {
 	// +mapType=granular
 	BucketInfo map[string]*string `json:"bucketInfo,omitempty" tf:"bucket_info,omitempty"`
 
-	// The name of the bucket.
+	// The name of the bucket. **Modifying this attribute will force creation of a new resource.**
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
 	// The bucket type. Either 'allPublic', meaning that files in this bucket can be downloaded by anybody, or 'allPrivate'.
@@ -86,7 +86,7 @@ type BucketParameters struct {
 	// +mapType=granular
 	BucketInfo map[string]*string `json:"bucketInfo,omitempty" tf:"bucket_info,omitempty"`
 
-	// The name of the bucket.
+	// The name of the bucket. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
@@ -185,7 +185,7 @@ type DefaultRetentionInitParameters struct {
 	// Default retention mode (compliance|governance|none).
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// How long for to make files immutable
+	// How long for to make files immutable.
 	Period []PeriodInitParameters `json:"period,omitempty" tf:"period,omitempty"`
 }
 
@@ -194,7 +194,7 @@ type DefaultRetentionObservation struct {
 	// Default retention mode (compliance|governance|none).
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// How long for to make files immutable
+	// How long for to make files immutable.
 	Period []PeriodObservation `json:"period,omitempty" tf:"period,omitempty"`
 }
 
@@ -204,7 +204,7 @@ type DefaultRetentionParameters struct {
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode" tf:"mode,omitempty"`
 
-	// How long for to make files immutable
+	// How long for to make files immutable.
 	// +kubebuilder:validation:Optional
 	Period []PeriodParameters `json:"period,omitempty" tf:"period,omitempty"`
 }
@@ -240,29 +240,29 @@ type DefaultServerSideEncryptionParameters struct {
 
 type FileLockConfigurationInitParameters struct {
 
-	// Default retention settings for files uploaded to this bucket
+	// Default retention settings for files uploaded to this bucket.
 	DefaultRetention []DefaultRetentionInitParameters `json:"defaultRetention,omitempty" tf:"default_retention,omitempty"`
 
-	// If present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`.
+	// If present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`. **Modifying this attribute will force creation of a new resource.**
 	IsFileLockEnabled *bool `json:"isFileLockEnabled,omitempty" tf:"is_file_lock_enabled,omitempty"`
 }
 
 type FileLockConfigurationObservation struct {
 
-	// Default retention settings for files uploaded to this bucket
+	// Default retention settings for files uploaded to this bucket.
 	DefaultRetention []DefaultRetentionObservation `json:"defaultRetention,omitempty" tf:"default_retention,omitempty"`
 
-	// If present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`.
+	// If present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`. **Modifying this attribute will force creation of a new resource.**
 	IsFileLockEnabled *bool `json:"isFileLockEnabled,omitempty" tf:"is_file_lock_enabled,omitempty"`
 }
 
 type FileLockConfigurationParameters struct {
 
-	// Default retention settings for files uploaded to this bucket
+	// Default retention settings for files uploaded to this bucket.
 	// +kubebuilder:validation:Optional
 	DefaultRetention []DefaultRetentionParameters `json:"defaultRetention,omitempty" tf:"default_retention,omitempty"`
 
-	// If present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`.
+	// If present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to `false`. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
 	IsFileLockEnabled *bool `json:"isFileLockEnabled,omitempty" tf:"is_file_lock_enabled,omitempty"`
 }
@@ -271,6 +271,9 @@ type LifecycleRulesInitParameters struct {
 
 	// It says how long to keep file versions that are not the current version.
 	DaysFromHidingToDeleting *float64 `json:"daysFromHidingToDeleting,omitempty" tf:"days_from_hiding_to_deleting,omitempty"`
+
+	// It cancels any unfinished large file versions after a given number of days.
+	DaysFromStartingToCancelingUnfinishedLargeFiles *float64 `json:"daysFromStartingToCancelingUnfinishedLargeFiles,omitempty" tf:"days_from_starting_to_canceling_unfinished_large_files,omitempty"`
 
 	// It causes files to be hidden automatically after the given number of days.
 	DaysFromUploadingToHiding *float64 `json:"daysFromUploadingToHiding,omitempty" tf:"days_from_uploading_to_hiding,omitempty"`
@@ -283,6 +286,9 @@ type LifecycleRulesObservation struct {
 
 	// It says how long to keep file versions that are not the current version.
 	DaysFromHidingToDeleting *float64 `json:"daysFromHidingToDeleting,omitempty" tf:"days_from_hiding_to_deleting,omitempty"`
+
+	// It cancels any unfinished large file versions after a given number of days.
+	DaysFromStartingToCancelingUnfinishedLargeFiles *float64 `json:"daysFromStartingToCancelingUnfinishedLargeFiles,omitempty" tf:"days_from_starting_to_canceling_unfinished_large_files,omitempty"`
 
 	// It causes files to be hidden automatically after the given number of days.
 	DaysFromUploadingToHiding *float64 `json:"daysFromUploadingToHiding,omitempty" tf:"days_from_uploading_to_hiding,omitempty"`
@@ -297,6 +303,10 @@ type LifecycleRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	DaysFromHidingToDeleting *float64 `json:"daysFromHidingToDeleting,omitempty" tf:"days_from_hiding_to_deleting,omitempty"`
 
+	// It cancels any unfinished large file versions after a given number of days.
+	// +kubebuilder:validation:Optional
+	DaysFromStartingToCancelingUnfinishedLargeFiles *float64 `json:"daysFromStartingToCancelingUnfinishedLargeFiles,omitempty" tf:"days_from_starting_to_canceling_unfinished_large_files,omitempty"`
+
 	// It causes files to be hidden automatically after the given number of days.
 	// +kubebuilder:validation:Optional
 	DaysFromUploadingToHiding *float64 `json:"daysFromUploadingToHiding,omitempty" tf:"days_from_uploading_to_hiding,omitempty"`
@@ -308,29 +318,29 @@ type LifecycleRulesParameters struct {
 
 type PeriodInitParameters struct {
 
-	// Duration
+	// Duration.
 	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// Unit for duration (days|years)
+	// Unit for duration (days|years).
 	Unit *string `json:"unit,omitempty" tf:"unit,omitempty"`
 }
 
 type PeriodObservation struct {
 
-	// Duration
+	// Duration.
 	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// Unit for duration (days|years)
+	// Unit for duration (days|years).
 	Unit *string `json:"unit,omitempty" tf:"unit,omitempty"`
 }
 
 type PeriodParameters struct {
 
-	// Duration
+	// Duration.
 	// +kubebuilder:validation:Optional
 	Duration *float64 `json:"duration" tf:"duration,omitempty"`
 
-	// Unit for duration (days|years)
+	// Unit for duration (days|years).
 	// +kubebuilder:validation:Optional
 	Unit *string `json:"unit" tf:"unit,omitempty"`
 }

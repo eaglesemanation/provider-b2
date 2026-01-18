@@ -79,7 +79,8 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   bucketName:
-                    description: The name of the bucket.
+                    description: The name of the bucket. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   bucketType:
                     description: The bucket type. Either 'allPublic', meaning that
@@ -144,21 +145,21 @@ spec:
                       properties:
                         defaultRetention:
                           description: Default retention settings for files uploaded
-                            to this bucket
+                            to this bucket.
                           items:
                             properties:
                               mode:
                                 description: Default retention mode (compliance|governance|none).
                                 type: string
                               period:
-                                description: How long for to make files immutable
+                                description: How long for to make files immutable.
                                 items:
                                   properties:
                                     duration:
-                                      description: Duration
+                                      description: Duration.
                                       type: number
                                     unit:
-                                      description: Unit for duration (days|years)
+                                      description: Unit for duration (days|years).
                                       type: string
                                   type: object
                                 type: array
@@ -166,7 +167,8 @@ spec:
                           type: array
                         isFileLockEnabled:
                           description: If present, the boolean value specifies whether
-                            bucket is File Lock-enabled. Defaults to `false`.
+                            bucket is File Lock-enabled. Defaults to `false`. **Modifying
+                            this attribute will force creation of a new resource.**
                           type: boolean
                       type: object
                     type: array
@@ -177,6 +179,10 @@ spec:
                         daysFromHidingToDeleting:
                           description: It says how long to keep file versions that
                             are not the current version.
+                          type: number
+                        daysFromStartingToCancelingUnfinishedLargeFiles:
+                          description: It cancels any unfinished large file versions
+                            after a given number of days.
                           type: number
                         daysFromUploadingToHiding:
                           description: It causes files to be hidden automatically
@@ -209,7 +215,8 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   bucketName:
-                    description: The name of the bucket.
+                    description: The name of the bucket. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   bucketType:
                     description: The bucket type. Either 'allPublic', meaning that
@@ -274,21 +281,21 @@ spec:
                       properties:
                         defaultRetention:
                           description: Default retention settings for files uploaded
-                            to this bucket
+                            to this bucket.
                           items:
                             properties:
                               mode:
                                 description: Default retention mode (compliance|governance|none).
                                 type: string
                               period:
-                                description: How long for to make files immutable
+                                description: How long for to make files immutable.
                                 items:
                                   properties:
                                     duration:
-                                      description: Duration
+                                      description: Duration.
                                       type: number
                                     unit:
-                                      description: Unit for duration (days|years)
+                                      description: Unit for duration (days|years).
                                       type: string
                                   type: object
                                 type: array
@@ -296,7 +303,8 @@ spec:
                           type: array
                         isFileLockEnabled:
                           description: If present, the boolean value specifies whether
-                            bucket is File Lock-enabled. Defaults to `false`.
+                            bucket is File Lock-enabled. Defaults to `false`. **Modifying
+                            this attribute will force creation of a new resource.**
                           type: boolean
                       type: object
                     type: array
@@ -307,6 +315,10 @@ spec:
                         daysFromHidingToDeleting:
                           description: It says how long to keep file versions that
                             are not the current version.
+                          type: number
+                        daysFromStartingToCancelingUnfinishedLargeFiles:
+                          description: It cancels any unfinished large file versions
+                            after a given number of days.
                           type: number
                         daysFromUploadingToHiding:
                           description: It causes files to be hidden automatically
@@ -432,7 +444,8 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   bucketName:
-                    description: The name of the bucket.
+                    description: The name of the bucket. **Modifying this attribute
+                      will force creation of a new resource.**
                     type: string
                   bucketType:
                     description: The bucket type. Either 'allPublic', meaning that
@@ -497,21 +510,21 @@ spec:
                       properties:
                         defaultRetention:
                           description: Default retention settings for files uploaded
-                            to this bucket
+                            to this bucket.
                           items:
                             properties:
                               mode:
                                 description: Default retention mode (compliance|governance|none).
                                 type: string
                               period:
-                                description: How long for to make files immutable
+                                description: How long for to make files immutable.
                                 items:
                                   properties:
                                     duration:
-                                      description: Duration
+                                      description: Duration.
                                       type: number
                                     unit:
-                                      description: Unit for duration (days|years)
+                                      description: Unit for duration (days|years).
                                       type: string
                                   type: object
                                 type: array
@@ -519,7 +532,8 @@ spec:
                           type: array
                         isFileLockEnabled:
                           description: If present, the boolean value specifies whether
-                            bucket is File Lock-enabled. Defaults to `false`.
+                            bucket is File Lock-enabled. Defaults to `false`. **Modifying
+                            this attribute will force creation of a new resource.**
                           type: boolean
                       type: object
                     type: array
@@ -532,6 +546,10 @@ spec:
                         daysFromHidingToDeleting:
                           description: It says how long to keep file versions that
                             are not the current version.
+                          type: number
+                        daysFromStartingToCancelingUnfinishedLargeFiles:
+                          description: It cancels any unfinished large file versions
+                            after a given number of days.
                           type: number
                         daysFromUploadingToHiding:
                           description: It causes files to be hidden automatically

@@ -8,11 +8,12 @@ resources:
         argumentDocs:
             application_key: (String, Sensitive) The key.
             application_key_id: (String) The ID of the newly created key.
-            bucket_id: (String) When present, restricts access to one bucket.
-            capabilities: (Set of String) A set of strings, each one naming a capability the key has.
+            bucket_id: (String, Deprecated) When present, restricts access to one bucket. Conflicts with bucket_ids. Modifying this attribute will force creation of a new resource.
+            bucket_ids: (Set of String) When provided, the new key can only access the specified buckets. Modifying this attribute will force creation of a new resource.
+            capabilities: (Set of String) A set of strings, each one naming a capability the key has. Modifying this attribute will force creation of a new resource.
             id: (String) The ID of this resource.
-            key_name: (String) The name of the key.
-            name_prefix: (String) When present, restricts access to files whose names start with the prefix.
+            key_name: (String) The name of the key. Modifying this attribute will force creation of a new resource.
+            name_prefix: (String) When present, restricts access to files whose names start with the prefix. Modifying this attribute will force creation of a new resource.
             options: (Set of String) List of application key options.
         importStatements: []
     b2_bucket Resource - terraform-provider-b2:
@@ -28,27 +29,28 @@ resources:
             allowed_origins: (List of String) A non-empty list specifying which origins the rule covers.
             bucket_id: (String) The ID of the bucket.
             bucket_info: (Map of String) User-defined information to be stored with the bucket.
-            bucket_name: (String) The name of the bucket.
+            bucket_name: (String) The name of the bucket. Modifying this attribute will force creation of a new resource.
             bucket_type: (String) The bucket type. Either 'allPublic', meaning that files in this bucket can be downloaded by anybody, or 'allPrivate'.
             cors_rule_name: (String) A name for humans to recognize the rule in a user interface.
             cors_rules: (Block List) The initial list of CORS rules for this bucket. (see below for nested schema)
             days_from_hiding_to_deleting: (Number) It says how long to keep file versions that are not the current version.
+            days_from_starting_to_canceling_unfinished_large_files: (Number) It cancels any unfinished large file versions after a given number of days.
             days_from_uploading_to_hiding: (Number) It causes files to be hidden automatically after the given number of days.
-            default_retention: '(Block List, Max: 1) Default retention settings for files uploaded to this bucket (see below for nested schema)'
+            default_retention: '(Block List, Max: 1) Default retention settings for files uploaded to this bucket. (see below for nested schema)'
             default_server_side_encryption: '(Block List, Max: 1) The default server-side encryption settings for this bucket. (see below for nested schema)'
-            duration: (Number) Duration
+            duration: (Number) Duration.
             expose_headers: (List of String) If present, this is a list of headers that may be exposed to an application inside the client.
             file_lock_configuration: (Block List) File lock enabled flag, and default retention settings. (see below for nested schema)
             file_name_prefix: (String) It specifies which files in the bucket it applies to.
             id: (String) The ID of this resource.
-            is_file_lock_enabled: (Boolean) If present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to false.
+            is_file_lock_enabled: (Boolean) If present, the boolean value specifies whether bucket is File Lock-enabled. Defaults to false. Modifying this attribute will force creation of a new resource.
             lifecycle_rules: (Block List) The initial list of lifecycle rules for this bucket. (see below for nested schema)
             max_age_seconds: (Number) This specifies the maximum number of seconds that a browser may cache the response to a preflight request.
             mode: (String) Server-side encryption mode.
             options: (Set of String) List of bucket options.
-            period: '(Block List, Max: 1) How long for to make files immutable (see below for nested schema)'
+            period: '(Block List, Max: 1) How long for to make files immutable. (see below for nested schema)'
             revision: (Number) Bucket revision.
-            unit: (String) Unit for duration (days|years)
+            unit: (String) Unit for duration (days|years).
         importStatements: []
     b2_bucket_file_version Resource - terraform-provider-b2:
         subCategory: ""
@@ -58,21 +60,21 @@ resources:
         argumentDocs:
             action: (String) One of 'start', 'upload', 'hide', 'folder', or other values added in the future.
             algorithm: (String) Server-side encryption algorithm. AES256 is the only one supported.
-            bucket_id: (String) The ID of the bucket.
+            bucket_id: (String) The ID of the bucket. Modifying this attribute will force creation of a new resource.
             content_md5: (String) MD5 sum of the content.
             content_sha1: (String) SHA1 hash of the content.
-            content_type: (String) Content type. If not set, it will be set based on the file extension.
+            content_type: (String) Content type. If not set, it will be set based on the file extension. Modifying this attribute will force creation of a new resource.
             file_id: (String) The unique identifier for this version of this file.
-            file_info: (Map of String) The custom information that is uploaded with the file.
-            file_name: (String) The name of the B2 file.
+            file_info: (Map of String) The custom information that is uploaded with the file. Modifying this attribute will force creation of a new resource.
+            file_name: (String) The name of the B2 file. Modifying this attribute will force creation of a new resource.
             id: (String) The ID of this resource.
             key: '(Block List, Max: 1) Key used in SSE-C mode. (see below for nested schema)'
-            key_id: (String) Key identifier stored in file info metadata
+            key_id: (String) Key identifier stored in file info metadata.
             mode: (String) Server-side encryption mode.
-            secret_b64: (String, Sensitive) Secret key value, in standard Base 64 encoding (RFC 4648)
-            server_side_encryption: '(Block List, Max: 1) Server-side encryption settings. (see below for nested schema)'
+            secret_b64: (String, Sensitive) Secret key value, in standard Base 64 encoding (RFC 4648).
+            server_side_encryption: '(Block List, Max: 1) Server-side encryption settings. Modifying this attribute will force creation of a new resource. (see below for nested schema)'
             size: (Number) The file size.
-            source: (String) Path to the local file.
+            source: (String) Path to the local file. Modifying this attribute will force creation of a new resource.
             upload_timestamp: (Number) This is a UTC time when this file was uploaded.
         importStatements: []
     b2_bucket_notification_rules Resource - terraform-provider-b2:
@@ -81,12 +83,12 @@ resources:
         name: b2_bucket_notification_rules Resource - terraform-provider-b2
         title: b2_bucket_notification_rules Resource - terraform-provider-b2
         argumentDocs:
-            bucket_id: (String) The ID of the bucket.
+            bucket_id: (String) The ID of the bucket. Modifying this attribute will force creation of a new resource.
             custom_headers: '(Block List, Max: 10) When present, additional header name/value pairs to be sent on the webhook invocation. (see below for nested schema)'
             event_types: (List of String) The list of event types for the event notification rule.
             hmac_sha256_signing_secret: (String, Sensitive) The signing secret for use in verifying the X-Bz-Event-Notification-Signature.
             id: (String) The ID of this resource.
-            is_enabled: (Boolean) Whether the event notification rule is enabled.
+            is_enabled: (Boolean) Whether the event notification rule is enabled. Defaults to true.
             is_suspended: (Boolean) Whether the event notification rule is suspended.
             name: (String) A name for the event notification rule. The name must be unique among the bucket's notification rules.
             notification_rules: '(Block List, Min: 1) An array of Event Notification Rules. (see below for nested schema)'

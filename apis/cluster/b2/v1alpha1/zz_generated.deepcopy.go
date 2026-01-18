@@ -48,6 +48,17 @@ func (in *ApplicationKeyInitParameters) DeepCopyInto(out *ApplicationKeyInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.BucketIds != nil {
+		in, out := &in.BucketIds, &out.BucketIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.BucketRef != nil {
 		in, out := &in.BucketRef, &out.BucketRef
 		*out = new(v1.Reference)
@@ -131,6 +142,17 @@ func (in *ApplicationKeyObservation) DeepCopyInto(out *ApplicationKeyObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.BucketIds != nil {
+		in, out := &in.BucketIds, &out.BucketIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.Capabilities != nil {
 		in, out := &in.Capabilities, &out.Capabilities
 		*out = make([]*string, len(*in))
@@ -187,6 +209,17 @@ func (in *ApplicationKeyParameters) DeepCopyInto(out *ApplicationKeyParameters) 
 		in, out := &in.BucketID, &out.BucketID
 		*out = new(string)
 		**out = **in
+	}
+	if in.BucketIds != nil {
+		in, out := &in.BucketIds, &out.BucketIds
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.BucketRef != nil {
 		in, out := &in.BucketRef, &out.BucketRef
@@ -1718,6 +1751,11 @@ func (in *LifecycleRulesInitParameters) DeepCopyInto(out *LifecycleRulesInitPara
 		*out = new(float64)
 		**out = **in
 	}
+	if in.DaysFromStartingToCancelingUnfinishedLargeFiles != nil {
+		in, out := &in.DaysFromStartingToCancelingUnfinishedLargeFiles, &out.DaysFromStartingToCancelingUnfinishedLargeFiles
+		*out = new(float64)
+		**out = **in
+	}
 	if in.DaysFromUploadingToHiding != nil {
 		in, out := &in.DaysFromUploadingToHiding, &out.DaysFromUploadingToHiding
 		*out = new(float64)
@@ -1748,6 +1786,11 @@ func (in *LifecycleRulesObservation) DeepCopyInto(out *LifecycleRulesObservation
 		*out = new(float64)
 		**out = **in
 	}
+	if in.DaysFromStartingToCancelingUnfinishedLargeFiles != nil {
+		in, out := &in.DaysFromStartingToCancelingUnfinishedLargeFiles, &out.DaysFromStartingToCancelingUnfinishedLargeFiles
+		*out = new(float64)
+		**out = **in
+	}
 	if in.DaysFromUploadingToHiding != nil {
 		in, out := &in.DaysFromUploadingToHiding, &out.DaysFromUploadingToHiding
 		*out = new(float64)
@@ -1775,6 +1818,11 @@ func (in *LifecycleRulesParameters) DeepCopyInto(out *LifecycleRulesParameters) 
 	*out = *in
 	if in.DaysFromHidingToDeleting != nil {
 		in, out := &in.DaysFromHidingToDeleting, &out.DaysFromHidingToDeleting
+		*out = new(float64)
+		**out = **in
+	}
+	if in.DaysFromStartingToCancelingUnfinishedLargeFiles != nil {
+		in, out := &in.DaysFromStartingToCancelingUnfinishedLargeFiles, &out.DaysFromStartingToCancelingUnfinishedLargeFiles
 		*out = new(float64)
 		**out = **in
 	}
