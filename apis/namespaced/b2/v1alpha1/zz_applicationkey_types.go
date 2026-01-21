@@ -16,23 +16,18 @@ import (
 
 type ApplicationKeyInitParameters struct {
 
-	// When present, restricts access to one bucket. Conflicts with `bucket_ids`. **Modifying this attribute will force creation of a new resource.**
-	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
-	// +crossplane:generate:reference:refFieldName=BucketRef
-	// +crossplane:generate:reference:selectorFieldName=BucketSelector
-	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
-
 	// When provided, the new key can only access the specified buckets. **Modifying this attribute will force creation of a new resource.**
+	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +listType=set
 	BucketIds []*string `json:"bucketIds,omitempty" tf:"bucket_ids,omitempty"`
 
-	// Reference to a Bucket in b2 to populate bucketId.
+	// References to Bucket in b2 to populate bucketIds.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+	BucketIdsRefs []v1.NamespacedReference `json:"bucketIdsRefs,omitempty" tf:"-"`
 
-	// Selector for a Bucket in b2 to populate bucketId.
+	// Selector for a list of Bucket in b2 to populate bucketIds.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketIdsSelector *v1.NamespacedSelector `json:"bucketIdsSelector,omitempty" tf:"-"`
 
 	// A set of strings, each one naming a capability the key has. **Modifying this attribute will force creation of a new resource.**
 	// +listType=set
@@ -46,9 +41,6 @@ type ApplicationKeyInitParameters struct {
 }
 
 type ApplicationKeyObservation struct {
-
-	// When present, restricts access to one bucket. Conflicts with `bucket_ids`. **Modifying this attribute will force creation of a new resource.**
-	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
 
 	// When provided, the new key can only access the specified buckets. **Modifying this attribute will force creation of a new resource.**
 	// +listType=set
@@ -73,25 +65,19 @@ type ApplicationKeyObservation struct {
 
 type ApplicationKeyParameters struct {
 
-	// When present, restricts access to one bucket. Conflicts with `bucket_ids`. **Modifying this attribute will force creation of a new resource.**
-	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
-	// +crossplane:generate:reference:refFieldName=BucketRef
-	// +crossplane:generate:reference:selectorFieldName=BucketSelector
-	// +kubebuilder:validation:Optional
-	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
-
 	// When provided, the new key can only access the specified buckets. **Modifying this attribute will force creation of a new resource.**
+	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	BucketIds []*string `json:"bucketIds,omitempty" tf:"bucket_ids,omitempty"`
 
-	// Reference to a Bucket in b2 to populate bucketId.
+	// References to Bucket in b2 to populate bucketIds.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+	BucketIdsRefs []v1.NamespacedReference `json:"bucketIdsRefs,omitempty" tf:"-"`
 
-	// Selector for a Bucket in b2 to populate bucketId.
+	// Selector for a list of Bucket in b2 to populate bucketIds.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketIdsSelector *v1.NamespacedSelector `json:"bucketIdsSelector,omitempty" tf:"-"`
 
 	// A set of strings, each one naming a capability the key has. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional

@@ -17,42 +17,42 @@ import (
 func (mg *ApplicationKey) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
-	var rsp reference.ResolutionResponse
+	var mrsp reference.MultiResolutionResponse
 	var err error
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BucketID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.BucketRef,
-		Selector:     mg.Spec.ForProvider.BucketSelector,
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.BucketIds),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.BucketIdsRefs,
+		Selector:      mg.Spec.ForProvider.BucketIdsSelector,
 		To: reference.To{
 			List:    &BucketList{},
 			Managed: &Bucket{},
 		},
 	})
 	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.BucketID")
+		return errors.Wrap(err, "mg.Spec.ForProvider.BucketIds")
 	}
-	mg.Spec.ForProvider.BucketID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.BucketIds = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.BucketIdsRefs = mrsp.ResolvedReferences
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.BucketID),
-		Extract:      reference.ExternalName(),
-		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.BucketRef,
-		Selector:     mg.Spec.InitProvider.BucketSelector,
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.BucketIds),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.BucketIdsRefs,
+		Selector:      mg.Spec.InitProvider.BucketIdsSelector,
 		To: reference.To{
 			List:    &BucketList{},
 			Managed: &Bucket{},
 		},
 	})
 	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.BucketID")
+		return errors.Wrap(err, "mg.Spec.InitProvider.BucketIds")
 	}
-	mg.Spec.InitProvider.BucketID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.BucketRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.BucketIds = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.BucketIdsRefs = mrsp.ResolvedReferences
 
 	return nil
 }
@@ -68,8 +68,8 @@ func (mg *BucketFileVersion) ResolveReferences(ctx context.Context, c client.Rea
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.BucketRef,
-		Selector:     mg.Spec.ForProvider.BucketSelector,
+		Reference:    mg.Spec.ForProvider.BucketIDRef,
+		Selector:     mg.Spec.ForProvider.BucketIDSelector,
 		To: reference.To{
 			List:    &BucketList{},
 			Managed: &Bucket{},
@@ -79,14 +79,14 @@ func (mg *BucketFileVersion) ResolveReferences(ctx context.Context, c client.Rea
 		return errors.Wrap(err, "mg.Spec.ForProvider.BucketID")
 	}
 	mg.Spec.ForProvider.BucketID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.BucketIDRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.BucketRef,
-		Selector:     mg.Spec.InitProvider.BucketSelector,
+		Reference:    mg.Spec.InitProvider.BucketIDRef,
+		Selector:     mg.Spec.InitProvider.BucketIDSelector,
 		To: reference.To{
 			List:    &BucketList{},
 			Managed: &Bucket{},
@@ -96,7 +96,7 @@ func (mg *BucketFileVersion) ResolveReferences(ctx context.Context, c client.Rea
 		return errors.Wrap(err, "mg.Spec.InitProvider.BucketID")
 	}
 	mg.Spec.InitProvider.BucketID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.BucketRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.BucketIDRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -112,8 +112,8 @@ func (mg *BucketNotificationRules) ResolveReferences(ctx context.Context, c clie
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.ForProvider.BucketRef,
-		Selector:     mg.Spec.ForProvider.BucketSelector,
+		Reference:    mg.Spec.ForProvider.BucketIDRef,
+		Selector:     mg.Spec.ForProvider.BucketIDSelector,
 		To: reference.To{
 			List:    &BucketList{},
 			Managed: &Bucket{},
@@ -123,14 +123,14 @@ func (mg *BucketNotificationRules) ResolveReferences(ctx context.Context, c clie
 		return errors.Wrap(err, "mg.Spec.ForProvider.BucketID")
 	}
 	mg.Spec.ForProvider.BucketID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.BucketIDRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.BucketID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
-		Reference:    mg.Spec.InitProvider.BucketRef,
-		Selector:     mg.Spec.InitProvider.BucketSelector,
+		Reference:    mg.Spec.InitProvider.BucketIDRef,
+		Selector:     mg.Spec.InitProvider.BucketIDSelector,
 		To: reference.To{
 			List:    &BucketList{},
 			Managed: &Bucket{},
@@ -140,7 +140,7 @@ func (mg *BucketNotificationRules) ResolveReferences(ctx context.Context, c clie
 		return errors.Wrap(err, "mg.Spec.InitProvider.BucketID")
 	}
 	mg.Spec.InitProvider.BucketID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.BucketRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.BucketIDRef = rsp.ResolvedReference
 
 	return nil
 }

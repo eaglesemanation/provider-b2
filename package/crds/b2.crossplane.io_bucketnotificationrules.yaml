@@ -78,7 +78,7 @@ spec:
                     description: The ID of the bucket. **Modifying this attribute
                       will force creation of a new resource.**
                     type: string
-                  bucketRef:
+                  bucketIdRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
                     properties:
                       name:
@@ -112,7 +112,7 @@ spec:
                     required:
                     - name
                     type: object
-                  bucketSelector:
+                  bucketIdSelector:
                     description: Selector for a Bucket in b2 to populate bucketId.
                     properties:
                       matchControllerRef:
@@ -239,7 +239,7 @@ spec:
                     description: The ID of the bucket. **Modifying this attribute
                       will force creation of a new resource.**
                     type: string
-                  bucketRef:
+                  bucketIdRef:
                     description: Reference to a Bucket in b2 to populate bucketId.
                     properties:
                       name:
@@ -273,7 +273,7 @@ spec:
                     required:
                     - name
                     type: object
-                  bucketSelector:
+                  bucketIdSelector:
                     description: Selector for a Bucket in b2 to populate bucketId.
                     properties:
                       matchControllerRef:

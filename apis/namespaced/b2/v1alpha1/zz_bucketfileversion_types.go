@@ -18,17 +18,15 @@ type BucketFileVersionInitParameters struct {
 
 	// The ID of the bucket. **Modifying this attribute will force creation of a new resource.**
 	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
-	// +crossplane:generate:reference:refFieldName=BucketRef
-	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+	BucketIDRef *v1.NamespacedReference `json:"bucketIdRef,omitempty" tf:"-"`
 
 	// Selector for a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketIDSelector *v1.NamespacedSelector `json:"bucketIdSelector,omitempty" tf:"-"`
 
 	// Content type. If not set, it will be set based on the file extension. **Modifying this attribute will force creation of a new resource.**
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
@@ -93,18 +91,16 @@ type BucketFileVersionParameters struct {
 
 	// The ID of the bucket. **Modifying this attribute will force creation of a new resource.**
 	// +crossplane:generate:reference:type=github.com/eaglesemanation/provider-b2/apis/namespaced/b2/v1alpha1.Bucket
-	// +crossplane:generate:reference:refFieldName=BucketRef
-	// +crossplane:generate:reference:selectorFieldName=BucketSelector
 	// +kubebuilder:validation:Optional
 	BucketID *string `json:"bucketId,omitempty" tf:"bucket_id,omitempty"`
 
 	// Reference to a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketRef *v1.NamespacedReference `json:"bucketRef,omitempty" tf:"-"`
+	BucketIDRef *v1.NamespacedReference `json:"bucketIdRef,omitempty" tf:"-"`
 
 	// Selector for a Bucket in b2 to populate bucketId.
 	// +kubebuilder:validation:Optional
-	BucketSelector *v1.NamespacedSelector `json:"bucketSelector,omitempty" tf:"-"`
+	BucketIDSelector *v1.NamespacedSelector `json:"bucketIdSelector,omitempty" tf:"-"`
 
 	// Content type. If not set, it will be set based on the file extension. **Modifying this attribute will force creation of a new resource.**
 	// +kubebuilder:validation:Optional
