@@ -8,8 +8,8 @@ spec:
     keyName: example-crossplane-key
     capabilities:
       - readFiles
-    bucketRef:
-      name: example-crossplane-bucket
+    bucketIdsRefs:
+      - name: example-crossplane-bucket
   providerConfigRef:
     kind: ProviderConfig
     name: default

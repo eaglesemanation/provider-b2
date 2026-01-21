@@ -39,7 +39,7 @@ make generate
 Test an example against a Kind k8s cluster (provider config is included throug setup.sh):
 ```console
 cp examples/namespaced/providerconfig/secret.yaml.tmpl examples/namespaced/providerconfig/secret.yaml # Update with valid creds
-make e2e UPTEST_EXAMPLE_LIST="examples/namespaced/bucket/bucket.yaml"
+make e2e UPTEST_EXAMPLE_LIST="examples/namespaced/bucket/bucket.yaml,examples/namespaced/applicationkey/applicationkey.yaml"
 kind delete cluster -n local-dev
 ```
 

@@ -8,9 +8,7 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = "b2"
 		r.Kind = "BucketNotificationRules"
 		r.References["bucket_id"] = config.Reference{
-			TerraformName:     "b2_bucket",
-			RefFieldName:      "BucketRef",
-			SelectorFieldName: "BucketSelector",
+			TerraformName: "b2_bucket",
 		}
 	})
 }

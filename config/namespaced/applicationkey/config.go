@@ -7,10 +7,11 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("b2_application_key", func(r *config.Resource) {
 		r.ShortGroup = "b2"
 		r.Kind = "ApplicationKey"
-		r.References["bucket_id"] = config.Reference{
-			TerraformName:     "b2_bucket",
-			RefFieldName:      "BucketRef",
-			SelectorFieldName: "BucketSelector",
+		r.ExternalName.OmittedFields = []string{
+			"bucket_id",
+		}
+		r.References["bucket_ids"] = config.Reference{
+			TerraformName: "b2_bucket",
 		}
 		if s, ok := r.TerraformResource.Schema["application_key_id"]; ok {
 			s.Sensitive = true
